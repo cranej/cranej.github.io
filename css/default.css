@@ -1,39 +1,67 @@
 body {
-    color: black;
+    color: #333;
     font-size: 16px;
     margin: 0px auto 0px auto;
-    width: 960px;
+    font-family: sans-serif;
 }
-
+h1, h2, h3{
+  font-weight: normal;
+}
 div#header {
-    border-bottom: 2px solid black;
-    margin-bottom: 30px;
-    padding: 12px 0px 12px 0px;
+  border-top: 5px solid #424242;
+  border-bottom: 1px solid #e8e8e8;
+  min-height: 56px;
 }
 
+div.wrapper
+{
+  max-width: 800px;
+  margin: 0 auto;
+  padding-left: 30px;
+  padding-left: 30px;
+}
+
+div#header .wrapper {
+  padding-top:12px;
+  padding-bottom: 12px;
+}
+
+ul.post-list {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+ul.post-list .post-meta {
+  font-size: 16px;
+  font-style: italic;
+}
 div#logo a {
-    color: black;
     float: left;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 22px;
+    font-weight: 300;
     text-decoration: none;
 }
 
+div#logo a:visited {
+  color:#333;
+}
 div#header #navigation {
     text-align: right;
+    padding-top: 5px;
 }
 
 div#header #navigation a {
-    color: black;
     font-size: 18px;
-    font-weight: bold;
     margin-left: 12px;
     text-decoration: none;
-    text-transform: uppercase;
+}
+
+div#header #navigation a:visited{
+  color: #333;
 }
 
 div#footer {
-    border-top: solid 2px black;
+    border-top: 1px solid #e8e8e8;
     color: #555;
     font-size: 12px;
     margin-top: 30px;
