@@ -1,0 +1,73 @@
+==================================================================
+https://keybase.io/cranej
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://cranejin.com
+  * I am cranej (https://keybase.io/cranej) on keybase.
+  * I have a public key with fingerprint B174 6780 27D0 3590 032B  E53F D236 D517 6EC2 B0C2
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "01019d5f76024c2fede58ae6ab2ead88e2070a0efdc7e44f6bda2750bdc88b48c5130a",
+            "fingerprint": "b174678027d03590032be53fd236d5176ec2b0c2",
+            "host": "keybase.io",
+            "key_id": "d236d5176ec2b0c2",
+            "kid": "01019d5f76024c2fede58ae6ab2ead88e2070a0efdc7e44f6bda2750bdc88b48c5130a",
+            "uid": "3aab2522bfae5bb8ffd83dc40052e719",
+            "username": "cranej"
+        },
+        "service": {
+            "hostname": "cranejin.com",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1471435555,
+    "expire_in": 157680000,
+    "prev": "bc5de8d8ec201b3b7ef46ad4f11a15c735126fdb574d89e217b9a88e0298a232",
+    "seqno": 5,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v2
+
+owGtUm1QFWUUvnyoSCJfOmiA4qZChbT77udFkusITSo1IwhUQ153930XVmD3du8F
+JLhhqCiiGeYEl48Go4xER/CaXZxgEiknxBAmEMqPpqBwGGUqGpK61i5TP5rpZ+fP
+O+85z/Occ545bwb4GPy8BpmhMKW7rdvr6l3BkHk+DZRgggqLsfgSLBfNPSgPIpvd
+nCtDLB7DCZwwQlpiGRxQIpAQRDTHI4YXAOIhxyGAsziPIwmKLKIoiREgD1gaF6DI
+cQLFiTRB4jwWi0myko2sFqus2DVZgWAphuVwwEKcpI04TgIB0aQEAclAmmAZJAIB
+F4FGzFFtOkMbTuBtKE5WtZz2Mc+N9x/4/3nugjk5kteINACCxCNaEDhJghwJRQrH
+aYBYwqgDbciq8PlIQ4tWXkG7MEcspuUKZRHptup7/KsuK3Gimq8xLVbVropqnlbJ
+sdst8TrRXmzRkUVIMP+tYRZkBWomaoRCZLXJqoLFExpStMu6KEGxBEXSWsRiaLdF
+tiKzrCNoluFwLfQ2qFC3XqQh4iCHxHSAEwIpsEiiGB5SEkHwBC2yJE0ARoICzVKQ
+MyJAsIKR1xzDgZHjAal7bEOvKCoWr7Wy89mapk3OVnh7gRVhDv9K7whfg5efYf48
+b/28DP4Lg/65uempIMNY9WhNuCPpt6MpX5Ql75p+ciYGehLJ5L6bQ0mTF7mxF7n2
+lxeNbL3wxOqlqZakRZbIpgXjxzyfLznzKekq63CujT53OyYsQLz7akDr+NnM4OVt
+081KQ3KbExiL39+rbvX7bnJ4vc+68Gd2/xjUPhi3+Xhl5+LuF74uNTX3Ogs21hYe
+dqwZemPjycQqW1fPz0tLnR+fe09e1VBx9nTJ4lBbzZDzrXIQ3d+fNngiPHIU+W+L
+ebBWzh6Z8XZ/dp/uuRd5/l7tQMKw47ZwpMe1r8N0JSyqdtk3Ob3RXRtMXzVWP4sL
+y3emuo+1zb+DRQerh6Dr16mRkNwvwc2m3qKo6HdGxUfeDfkpYf8naWayqXQP8qQG
+bm7Ob1oxUNnRiU2sf74q0xZ5rSJdchwsmlomNabfSPlwZcT20JbZ9ovV7hUblNm+
+kmtdk68fj1rwdmKd2cuNcVHfW3Z6+wbXztozKh41hK4LC2S2tPxZ15p+6/GsMXNW
+VOfTZw4EXvp9v6t+mOnHyp9q2f7ggzzHkVVZrsHHPkqZSambcJ9yeXsuRTy3KTT/
+ZM2VhXsLPe37SsXB0ozWh40HWn3de8ZrE385NPGtzx+ZJyq29JEDxEvOJYzP9bKq
+yw8PJ5hu8JZtIWOmeRk+r50yX2jY4TUZId0/Td9ac3XT9dk7ZUr91I6Vq3tiE8bk
+etMP5UeZHM/lvwA=
+=/jiR
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/cranej
+
+==================================================================
