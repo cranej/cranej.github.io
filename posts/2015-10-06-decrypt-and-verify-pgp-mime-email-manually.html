@@ -43,22 +43,22 @@
 9 X-Mailer: Apple Mail (2.3094)
 10 Return-Path: xxxx@xxxx.com
 11 X-OriginalArrivalTime: 04 Oct 2015 22:04:02.0543 (UTC) FILETIME=[942E8FF0:01D0FEF0]
-12 
+12
 13 --Apple-Mail=_7A110488-625C-4A1B-84AC-2F9F6F5BC49F
 14 Content-Transfer-Encoding: 7bit
 15 Content-Type: text/plain;
 16 	charset=us-ascii
-17 
+17
 18 singed message
-19 
+19
 20 --Apple-Mail=_7A110488-625C-4A1B-84AC-2F9F6F5BC49F
 21 Content-Transfer-Encoding: 7bit
 22 Content-Disposition: attachment; filename=&quot;signature.asc&quot;
 23 Content-Type: application/pgp-signature; name=&quot;signature.asc&quot;
 24 Content-Description: Message signed with OpenPGP using GPGMail
-25 
+25
 26 -----BEGIN PGP SIGNATURE-----
-27 
+27
 28 iQIcBAEBCgAGBQJWEaJGAAoJENI21RduwrDCy04QALctCwg6epM2MVb5GtlNus7p
 29 sNr0zWnZQLHcDIAnAqqcS3yId1doYLok6YHGuVZQ4TwJ6XwtswC+QS8DBqaRsWC7
 30 RckPSbb0EK47OK4DdlmDvZnYEB+jPunPqhYCEAvyv85394J0RdkSb+P7bV/IEmNd
@@ -73,7 +73,7 @@
 39 CjV4RBDbKRbx4y0doRSy
 40 =qHUN
 41 -----END PGP SIGNATURE-----
-42 
+42
 43 --Apple-Mail=_7A110488-625C-4A1B-84AC-2F9F6F5BC49F--</code></pre>
 <p>The email message consists of two parts: line 14 ~ 18 is what has been signed (note do not include the tail blank line), line 26 ~ 41 is the signature. Save these two parts as separate files, for example, <code>message.txt</code> and <code>signature.asc</code>. Now you may already know how to do the rest:</p>
 <pre><code>gpg --verify signature.asc message.txt</code></pre>
@@ -87,34 +87,34 @@ file which contains only one line “Version 1”. If you received a message tha
 2 	boundary=&quot;Apple-Mail=_61F7F512-9AAD-4F60-9462-F35CCAC90ED1&quot;;
 3 	protocol=&quot;application/pgp-signature&quot;;
 4 	micalg=pgp-sha512
-5 
-6 
+5
+6
 7 --Apple-Mail=_61F7F512-9AAD-4F60-9462-F35CCAC90ED1
 8 Content-Type: multipart/mixed;
 9 	boundary=&quot;Apple-Mail=_91F869CE-76D7-415D-B847-2CAC206A4328&quot;
-10 
-11 
+10
+11
 12 --Apple-Mail=_91F869CE-76D7-415D-B847-2CAC206A4328
 13 Content-Disposition: attachment;
 14 	filename=pbencrypt.sh
 15 Content-Type: application/octet-stream;
 16 	name=&quot;pbencrypt.sh&quot;
 17 Content-Transfer-Encoding: 7bit
-18 
+18
 19 echo recipient: $1
 20 pbpaste | gpg -a -u 0x6EC2B0C2 -r $1 -s -e | pbcopy
-21 
-22 
+21
+22
 23 --Apple-Mail=_91F869CE-76D7-415D-B847-2CAC206A4328
 24 Content-Transfer-Encoding: 7bit
 25 Content-Type: text/plain;
 26 	charset=us-ascii
-27 
-28 
-29 
+27
+28
+29
 30 Hello, here is the script attached.
 31 --Apple-Mail=_91F869CE-76D7-415D-B847-2CAC206A4328--
-32 
+32
 33 --Apple-Mail=_61F7F512-9AAD-4F60-9462-F35CCAC90ED1
 34 Content-Transfer-Encoding: 7bit
 35 Content-Disposition: attachment;
@@ -122,9 +122,9 @@ file which contains only one line “Version 1”. If you received a message tha
 37 Content-Type: application/pgp-signature;
 38 	name=signature.asc
 39 Content-Description: Message signed with OpenPGP using GPGMail
-40 
+40
 41 -----BEGIN PGP SIGNATURE-----
-42 
+42
 43 iQIcBAEBCgAGBQJWESerAAoJENI21RduwrDCZDQQAMb9mBKrI67/+L5QeuMZBdod
 44 NnByIKAjs+D1CvJLXt7vzli9cLguXUgHQCxZ9Af6h5VqF6u6BHQ66thW4VKH1YjU
 45 xeutLIdFUqoQBXhqPRz4Uutd8UBLcUs9JJRPP9QFiThsICBjVLr/fDHMgQyBY9lY
@@ -139,12 +139,10 @@ file which contains only one line “Version 1”. If you received a message tha
 54 EyqMl3l93rObwU28H+bl
 55 =lmU2
 56 -----END PGP SIGNATURE-----
-57 
+57
 58 --Apple-Mail=_61F7F512-9AAD-4F60-9462-F35CCAC90ED1--</code></pre>
-<p>It’s similar as the example we used in previous section <strong>Signed Email</strong>. The boundary string used to separate the signed data and the signature is “Apple-Mail=_61F7F512-9AAD-4F60-9462-F35CCAC90ED1” in line 2, it also appears on line 7, line 33, and line 58. Thus, the email can be split as two parts: line 8 to 31 (tail blank line removed) is the data which was signed, line 41 to 6 is the signature itself. To verify the signature, save them as separate files and use the same command<br />
-as in previous section.</p>
-<p>The last thing is how to extract the attachment, in this example, “pbencrypt.sh”. The first part (line 8 to 31) itself consists of two parts which were separated with boundary string “Apple-Mail=_91F869CE-76D7-415D-B847-2CAC206A4328” which can be found at line 9. Use this boundary string, we can split line 8 to 31 as two parts: line 15 to 21 is the attachment, line 24 to 30 is the message body. If the attachment file is not a text file, it will be encoded as base64, just copy the encoded<br />
-string as use some utility tools like <code>base64</code> to convert it back to binary file.</p>
+<p>It’s similar as the example we used in previous section <strong>Signed Email</strong>. The boundary string used to separate the signed data and the signature is “Apple-Mail=_61F7F512-9AAD-4F60-9462-F35CCAC90ED1” in line 2, it also appears on line 7, line 33, and line 58. Thus, the email can be split as two parts: line 8 to 31 (tail blank line removed) is the data which was signed, line 41 to 6 is the signature itself. To verify the signature, save them as separate files and use the same command as in previous section.</p>
+<p>The last thing is how to extract the attachment, in this example, “pbencrypt.sh”. The first part (line 8 to 31) itself consists of two parts which were separated with boundary string “Apple-Mail=_91F869CE-76D7-415D-B847-2CAC206A4328” which can be found at line 9. Use this boundary string, we can split line 8 to 31 as two parts: line 15 to 21 is the attachment, line 24 to 30 is the message body. If the attachment file is not a text file, it will be encoded as base64, just copy the encoded string as use some utility tools like <code>base64</code> to convert it back to binary file.</p>
 
         </div>
         <div id="footer">

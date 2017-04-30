@@ -30,8 +30,8 @@
 
 <h1 id="mallocplainforeignptrbytes-size-must-be-0-on-windows">mallocPlainForeignPtrBytes: size must be &gt;= 0 on Windows</h1>
 <p>The issue happens on Windows 8 and later when you run <code>cabal install</code>. The simplest solution is to set environment <code>HTTP_PROXY</code> and <code>HTTPS_PROXY</code> to a working proxy. For example in PowerShell you can run:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">$env</span>:<span class="ot">HTTP_PROXY=</span><span class="st">&quot;http://yourproxy1&quot;</span>
-<span class="ot">$env</span>:<span class="ot">HTTPS_PROXY=</span><span class="st">&quot;http://yourproxy&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="va">$env</span>:<span class="va">HTTP_PROXY=</span><span class="st">&quot;http://yourproxy1&quot;</span>
+<span class="va">$env</span>:<span class="va">HTTPS_PROXY=</span><span class="st">&quot;http://yourproxy&quot;</span></code></pre></div>
 <p>The root cause seems to be that on Windows 8 or later http library of Haskell cannot detect system proxy configuration anymore. See <a href="https://github.com/haskell/HTTP/issues/72">this issue</a> for details.</p>
 
         </div>
