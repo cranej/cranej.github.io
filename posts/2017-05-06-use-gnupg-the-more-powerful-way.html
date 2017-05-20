@@ -16,6 +16,7 @@
                 <a href="../">Home</a>
                 <a href="../about.html">About</a>
                 <a href="../hstack.html">HStack</a>
+                <a href="../alwaysforget.html">Forget</a>
                 <a href="../archive.html">Archive</a>
             </div>
           </div>
@@ -50,10 +51,11 @@ fi
 export SSH_AUTH_SOCK=/run/user/$UID/gnupg/S.gpg-agent.ssh</code></pre>
 <p>The <code>GPG_TTY</code> line has nothing to do with <code>gpg-agent</code> but is necessary if you want curses based Pinentry to work without problems.</p>
 <h3 id="make-sure-ssh-agent-does-not-start-automatically-any-more">Make sure <code>ssh-agent</code> does not start automatically any more</h3>
-<p>If you are using a full featured desktop environment like Gnome or KDE, <code>ssh-agent</code> must already be configured to run automatically at system startup. You need to consult the documentations of Gnome or KDE to remove it from the auto-start list. If you are using <a href="https://www.archlinux.org/">Arch Linux</a> with a minimalist window manager like <a href="https://i3wm.org/">i3wm</a> as me, nothing need to do.</p>
+<p>If you are using a full featured desktop environment like Gnome or KDE, <code>ssh-agent</code> must already be configured to run automatically at system startup. You need to consult the documentations of Gnome or KDE to remove it from the auto-start list.</p>
+<p>If you are using <a href="https://www.archlinux.org/">Arch Linux</a> with a minimalist window manager like <a href="https://i3wm.org/">i3wm</a> as me, nothing needs to be done.</p>
 <h2 id="create-an-authentication-purposed-gpg-key-and-use-it-for-ssh-authentication">Create an authentication purposed gpg key and use it for ssh authentication</h2>
 <h3 id="create-a-gpg-key-with-the-sole-purpose">Create a gpg key with the sole purpose</h3>
-<p>Assume you already has a gpg key, if not please create one via <code>gpg --gen-key</code> first. Now add a new key which has only capability - authentication:</p>
+<p>Assume you already have a gpg key, if not please create one via <code>gpg --gen-key</code> first. Now add a new key which has only one capability - authentication:</p>
 <ol>
 <li>Run <code>gpg --expert --edit-key [your key id here]</code></li>
 <li>In the interactive shell run <code>addkey</code></li>
@@ -68,7 +70,7 @@ export SSH_AUTH_SOCK=/run/user/$UID/gnupg/S.gpg-agent.ssh</code></pre>
 <li>Write it into <code>~/.gnupg/sshcontrol</code> as a separate line.</li>
 </ol>
 <p>Now if you run <code>ssh-add -l</code> you should be able to see the new added key.</p>
-<p>To export the public key if you need a correct format to include into <code>~/.ssh/authorized_keys</code> or add to github etc., use <code>ssh-add -L</code> instead.</p>
+<p>To export the public key in a correct form for <code>~/.ssh/authorized_keys</code> and github etc., use <code>ssh-add -L</code> instead.</p>
 
         </div>
         <div id="footer">
