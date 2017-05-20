@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>春江花月夜 - The power of GnuPG: Use a gpg key as a ssh key, with gpg-agent</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+    </head>
+    <body>
+        <div id="header">
+          <div class="wrapper">
+            <div id="logo">
+                <a href="../">春江花月夜</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../hstack.html">HStack</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+          </div>
+        </div>
+
+        <div id="content" class="wrapper">
+            <h1>The power of GnuPG: Use a gpg key as a ssh key, with gpg-agent</h1>
+<div class="info">
+    Posted on May  6, 2017
+    
+</div>
+
+<p>In GnuPG 2.0 and 2.1, we are able to use <code>gpg-agent</code> to fully replace <code>ssh-agent</code>. And since 2.1, use a gpg key as a ssh key with gpg-agent becomes much easier than in previous versions. No need to convert/export gpg keys as ssh keys via other tools anymore. For me, the biggest benefit is that in this way, I can manage my gpg and ssh keys the same way in gnupg keyring.</p>
+<h2 id="properly-configure-and-start-up-gpg-agent">Properly configure and start up <code>gpg-agent</code></h2>
+<h3 id="configure">Configure</h3>
+<p>Firstly we need to tell <code>gpg-agent</code> to <strong>enable ssh support</strong> by adding the following lines to <code>~/.gnupg/gpg-agent.conf</code>:</p>
+<pre><code>enable-ssh-support</code></pre>
+<p>And optionally, to <strong>avoid typing passphrase every time</strong>, add the following lines also:</p>
+<pre><code>default-cache-ttl-ssh 10800
+max-cache-ttl-ssh 10800</code></pre>
+<p>These two lines set both maximum and default ssh key cache time to 3 hours.</p>
+<h3 id="start-gpg-agent-at-startup">Start <code>gpg-agent</code> at startup</h3>
+<p>Although GnuPG programs are able to start <code>gpg-agent</code> on demand, we still have to ensure the agent is started when we logged into the system as ssh client has no way to know that it needs to start <code>gpg-agent</code> nor how to do it. My choice is to add the following lines into <code>.zshrc</code>, you can adjust the script and where to put it in based on your need:</p>
+<pre><code>#Gnupg
+export GPG_TTY=$(tty)
+
+unset SSH_AGENT_PID
+if ! pgrep -x -u &quot;${USER}&quot; gpg-agent &gt;/dev/null 2&gt;&amp;1; then
+  gpg-connect-agent /bye &gt;/dev/null 2&gt;&amp;1
+fi
+
+export SSH_AUTH_SOCK=/run/user/$UID/gnupg/S.gpg-agent.ssh</code></pre>
+<p>The <code>GPG_TTY</code> line has nothing to do with <code>gpg-agent</code> but is necessary if you want curses based Pinentry to work without problems.</p>
+<h3 id="make-sure-ssh-agent-does-not-start-automatically-any-more">Make sure <code>ssh-agent</code> does not start automatically any more</h3>
+<p>If you are using a full featured desktop environment like Gnome or KDE, <code>ssh-agent</code> must already be configured to run automatically at system startup. You need to consult the documentations of Gnome or KDE to remove it from the auto-start list. If you are using <a href="https://www.archlinux.org/">Arch Linux</a> with a minimalist window manager like <a href="https://i3wm.org/">i3wm</a> as me, nothing need to do.</p>
+<h2 id="create-an-authentication-purposed-gpg-key-and-use-it-for-ssh-authentication">Create an authentication purposed gpg key and use it for ssh authentication</h2>
+<h3 id="create-a-gpg-key-with-the-sole-purpose">Create a gpg key with the sole purpose</h3>
+<p>Assume you already has a gpg key, if not please create one via <code>gpg --gen-key</code> first. Now add a new key which has only capability - authentication:</p>
+<ol>
+<li>Run <code>gpg --expert --edit-key [your key id here]</code></li>
+<li>In the interactive shell run <code>addkey</code></li>
+<li>Select <code>RSA (set your own capabilities)</code></li>
+<li>Select <code>S</code> then <code>E</code> to turn off the default sign and encrypt capabilities, then select <code>A</code> to turn on authentication.</li>
+<li>Select <code>Q</code> to finish capabilities selection and finish other steps.</li>
+</ol>
+<h3 id="use-the-new-created-key-for-ssh-authentication">Use the new created key for ssh authentication</h3>
+<p>Prior to gpg version 2.1, you will have to use some third party tools to convert the gpg key to ssh key and use it as other ordinary ssh keys. Start from version 2.1 things became much easier.</p>
+<ol>
+<li>Find out <em>keygrip</em> of the new created key by running <code>gpg2 --with-keygrip -k [your key id]</code>.</li>
+<li>Write it into <code>~/.gnupg/sshcontrol</code> as a separate line.</li>
+</ol>
+<p>Now if you run <code>ssh-add -l</code> you should be able to see the new added key.</p>
+<p>To export the public key if you need a correct format to include into <code>~/.ssh/authorized_keys</code> or add to github etc., use <code>ssh-add -L</code> instead.</p>
+
+        </div>
+        <div id="footer">
+            <div class="wrapper">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+          </div>
+        </div>
+    </body>
+</html>
