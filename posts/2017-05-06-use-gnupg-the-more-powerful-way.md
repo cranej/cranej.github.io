@@ -29,28 +29,31 @@ These two lines set both maximum and default ssh key cache time to 3 hours.
 
 Although GnuPG programs are able to start `gpg-agent` on demand, we still have to ensure the agent is started when we logged into the system as ssh client has no way to know that it needs to start `gpg-agent` nor how to do it. My choice is to add the following lines into `.zshrc`, you can adjust the script and where to put it in based on your need:
 
+```bash
+#Gnupg
+export GPG_TTY=$(tty)
 
-    #Gnupg
-    export GPG_TTY=$(tty)
+unset SSH_AGENT_PID
+if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
+  gpg-connect-agent /bye >/dev/null 2>&1
+fi
 
-    unset SSH_AGENT_PID
-    if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
-      gpg-connect-agent /bye >/dev/null 2>&1
-    fi
-
-    export SSH_AUTH_SOCK=/run/user/$UID/gnupg/S.gpg-agent.ssh
+export SSH_AUTH_SOCK=/run/user/$UID/gnupg/S.gpg-agent.ssh
+```
 
 The `GPG_TTY` line has nothing to do with `gpg-agent` but is necessary if you want curses based Pinentry to work without problems.
 
 ### Make sure `ssh-agent` does not start automatically any more
 
-If you are using a full featured desktop environment like Gnome or KDE, `ssh-agent` must already be configured to run automatically at system startup. You need to consult the documentations of Gnome or KDE to remove it from the auto-start list. If you are using [Arch Linux][1] with a minimalist window manager like [i3wm][2] as me, nothing need to do.
+If you are using a full featured desktop environment like Gnome or KDE, `ssh-agent` must already be configured to run automatically at system startup. You need to consult the documentations of Gnome or KDE to remove it from the auto-start list.
+
+If you are using [Arch Linux][1] with a minimalist window manager like [i3wm][2] as me, nothing needs to be done.
 
 ## Create an authentication purposed gpg key and use it for ssh authentication
 
 ### Create a gpg key with the sole purpose
 
-Assume you already has a gpg key, if not please create one via `gpg --gen-key` first. Now add a new key which has only capability - authentication:
+Assume you already have a gpg key, if not please create one via `gpg --gen-key` first. Now add a new key which has only one capability - authentication:
 
 1. Run `gpg --expert --edit-key [your key id here]`
 2. In the interactive shell run `addkey`
@@ -67,7 +70,7 @@ Prior to gpg version 2.1, you will have to use some third party tools to convert
 
 Now if you run `ssh-add -l` you should be able to see the new added key.
 
-To export the public key if you need a correct format to include into `~/.ssh/authorized_keys` or add to github etc., use `ssh-add -L` instead.
+To export the public key in a correct form for `~/.ssh/authorized_keys` and github etc., use `ssh-add -L` instead.
 
 
 [1]: https://www.archlinux.org/
