@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "The power of GnuPG: Use a gpg key as a ssh key, with gpg-agent"
-date: 2017-05-06 09:51
+date: 2017-05-20 20:49
 tags:
 - gpg
 - ssh
@@ -27,7 +27,7 @@ These two lines set both maximum and default ssh key cache time to 3 hours.
 
 ### Start `gpg-agent` at startup
 
-Although GnuPG programs are able to start `gpg-agent` on demand, we still have to ensure the agent is started when we logging into the system as ssh client has no way to know  that it needs to start `gpg-agent` nor how to do it. My choice is to add the following lines into `.zshrc`, you can adjust the script and where to put it in based on your need:
+Although GnuPG programs are able to start `gpg-agent` on demand, we still have to ensure the agent is started when we logged into the system as ssh client has no way to know that it needs to start `gpg-agent` nor how to do it. My choice is to add the following lines into `.zshrc`, you can adjust the script and where to put it in based on your need:
 
 
     #Gnupg
@@ -46,7 +46,28 @@ The `GPG_TTY` line has nothing to do with `gpg-agent` but is necessary if you wa
 
 If you are using a full featured desktop environment like Gnome or KDE, `ssh-agent` must already be configured to run automatically at system startup. You need to consult the documentations of Gnome or KDE to remove it from the auto-start list. If you are using [Arch Linux][1] with a minimalist window manager like [i3wm][2] as me, nothing need to do.
 
-## Create and use a gpg key for ssh authentication
+## Create an authentication purposed gpg key and use it for ssh authentication
+
+### Create a gpg key with the sole purpose
+
+Assume you already has a gpg key, if not please create one via `gpg --gen-key` first. Now add a new key which has only capability - authentication:
+
+1. Run `gpg --expert --edit-key [your key id here]`
+2. In the interactive shell run `addkey`
+3. Select `RSA (set your own capabilities)`
+4. Select `S` then `E` to turn off the default sign and encrypt capabilities, then select `A` to turn on authentication.
+5. Select `Q` to finish capabilities selection and finish other steps.
+
+### Use the new created key for ssh authentication
+
+Prior to gpg version 2.1, you will have to use some third party tools to convert the gpg key to ssh key and use it as other ordinary ssh keys. Start from version 2.1 things became much easier.
+
+1. Find out *keygrip* of the new created key by running `gpg2 --with-keygrip -k [your key id]`.
+2. Write it into `~/.gnupg/sshcontrol` as a separate line.
+
+Now if you run `ssh-add -l` you should be able to see the new added key.
+
+To export the public key if you need a correct format to include into `~/.ssh/authorized_keys` or add to github etc., use `ssh-add -L` instead.
 
 
 [1]: https://www.archlinux.org/
