@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>春江花月夜 - The power of GnuPG: Use a gpg key as a ssh key, with gpg-agent</title>
+        <title>春江花月夜 - The power of GnuPG: Use gpg keys for ssh authentication, with gpg-agent</title>
         <link rel="stylesheet" type="text/css" href="../css/default.css" />
     </head>
     <body>
@@ -23,14 +23,14 @@
         </div>
 
         <div id="content" class="wrapper">
-            <h1>The power of GnuPG: Use a gpg key as a ssh key, with gpg-agent</h1>
+            <h1>The power of GnuPG: Use gpg keys for ssh authentication, with gpg-agent</h1>
 <div class="info">
-    Posted on May  6, 2017
+    Posted on May 20, 2017
     
 </div>
 
-<p>In GnuPG 2.0 and 2.1, we are able to use <code>gpg-agent</code> to fully replace <code>ssh-agent</code>. And since 2.1, use a gpg key as a ssh key with gpg-agent becomes much easier than in previous versions. No need to convert/export gpg keys as ssh keys via other tools anymore. For me, the biggest benefit is that in this way, I can manage my gpg and ssh keys the same way in gnupg keyring.</p>
-<h2 id="properly-configure-and-start-up-gpg-agent">Properly configure and start up <code>gpg-agent</code></h2>
+<p>In GnuPG 2.0 and 2.1, we are able to use <code>gpg-agent</code> to fully replace <code>ssh-agent</code>. And since 2.1, use gpg keys for ssh authentication with gpg-agent becomes much easier than in previous versions. No need to convert/export gpg keys as ssh keys via third party tools anymore. For me, the biggest benefit is that in this way, I can manage my gpg and ssh keys the same way in gnupg keyring.</p>
+<h2 id="replace-ssh-agent-with-gpg-agent">Replace <code>ssh-agent</code> with <code>gpg-agent</code></h2>
 <h3 id="configure">Configure</h3>
 <p>Firstly we need to tell <code>gpg-agent</code> to <strong>enable ssh support</strong> by adding the following lines to <code>~/.gnupg/gpg-agent.conf</code>:</p>
 <pre><code>enable-ssh-support</code></pre>
