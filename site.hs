@@ -19,12 +19,12 @@ main = do
             route   idRoute
             compile compressCssCompiler
 
-        match (fromList ["CNAME", "key.asc"]) $ do
-          route idRoute
-          compile copyFileCompiler
+        match "raws/*" $ do
+            route $ gsubRoute "raws/" (const "")
+            compile copyFileCompiler
 
-        match (fromList ["about.markdown", "hstack.markdown", "alwaysforget.md"]) $ do
-            route   $ setExtension "html"
+        match "pages/*" $ do
+            route $ composeRoutes (gsubRoute "pages/" (const "")) (setExtension "html")
             compile $ pandocCompilerWith mdOptions defaultHakyllWriterOptions
                 >>= loadAndApplyTemplate "templates/default.html" defaultContext
                 >>= relativizeUrls
@@ -69,7 +69,6 @@ main = do
 
 
 --------------------------------------------------------------------------------
--- TODO: read from external file
 myConfig :: Configuration
 myConfig = def
 
