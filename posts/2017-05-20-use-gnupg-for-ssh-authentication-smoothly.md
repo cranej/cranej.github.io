@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "The power of GnuPG: Use a gpg key as a ssh key, with gpg-agent"
+title:  "The power of GnuPG: Use gpg keys for ssh authentication, with gpg-agent"
 date: 2017-05-20 20:49
 tags:
 - gpg
@@ -8,9 +8,9 @@ tags:
 - tips
 ---
 
-In GnuPG 2.0 and 2.1, we are able to use `gpg-agent` to fully replace `ssh-agent`. And since 2.1, use a gpg key as a ssh key with gpg-agent becomes much easier than in previous versions. No need to convert/export gpg keys as ssh keys via other tools anymore. For me, the biggest benefit is that in this way, I can manage my gpg and ssh keys the same way in gnupg keyring.
+In GnuPG 2.0 and 2.1, we are able to use `gpg-agent` to fully replace `ssh-agent`. And since 2.1, use gpg keys for ssh authentication with gpg-agent becomes much easier than in previous versions. No need to convert/export gpg keys as ssh keys via third party tools anymore. For me, the biggest benefit is that in this way, I can manage my gpg and ssh keys the same way in gnupg keyring.
 
-## Properly configure and start up `gpg-agent`
+## Replace `ssh-agent` with `gpg-agent`
 
 ### Configure
 
