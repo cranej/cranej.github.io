@@ -31,23 +31,25 @@ Although GnuPG programs are able to start `gpg-agent` on demand, we still have t
 
 ```bash
 #Gnupg
-export GPG_TTY=$(tty)
-
 unset SSH_AGENT_PID
 if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
   gpg-connect-agent /bye >/dev/null 2>&1
 fi
 
 export SSH_AUTH_SOCK=/run/user/$UID/gnupg/S.gpg-agent.ssh
+
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null
 ```
 
-The `GPG_TTY` line has nothing to do with `gpg-agent` but is necessary if you want curses based Pinentry to work without problems.
+~~The `GPG_TTY` line has nothing to do with `gpg-agent` but is necessary if you want curses based Pinentry to work without problems.~~
+Edit 2017-06-25: last week my `gpg-agent` stopped working as a `ssh-agent` with error `sign_and_send_pubkey: signing failed: agent refused operation`. After some searches on the web, I found that setting `GPG_TTY` correctly and plus the `updatestartuptty` line is the rescue.
 
 ### Make sure `ssh-agent` does not start automatically any more
 
 If you are using a full featured desktop environment like Gnome or KDE, `ssh-agent` must already be configured to run automatically at system startup. You need to consult the documentations of Gnome or KDE to remove it from the auto-start list.
 
-If you are using [Arch Linux][1] with a minimalist window manager like [i3wm][2] as me, nothing needs to be done.
+If you are using [Arch Linux][1] with a minimalist window manager like [i3wm][2] as me, nothing needs to be done as this setup does not start many things at startup usually.
 
 ## Create an authentication purposed gpg key and use it for ssh authentication
 
@@ -63,7 +65,7 @@ Assume you already have a gpg key, if not please create one via `gpg --gen-key` 
 
 ### Use the new created key for ssh authentication
 
-Prior to gpg version 2.1, you will have to use some third party tools to convert the gpg key to ssh key and use it as other ordinary ssh keys. Start from version 2.1 things became much easier.
+Prior to gpg version 2.1, you will have to use some third party tools to convert the gpg key to ssh key, and use it in the same way as for other ordinary ssh keys. Start from version 2.1 things became much easier.
 
 1. Find out *keygrip* of the new created key by running `gpg2 --with-keygrip -k [your key id]`.
 2. Write it into `~/.gnupg/sshcontrol` as a separate line.
