@@ -40,10 +40,10 @@ tags:
             1))
 ```
 
-变量 `org-emphasis-regexp-components` 顾名思义是 org mode 用来识别有效的 `emphasis` 的规则， `C-h v org-emphasis-regexp-components` 可以看到详细说明，比如 `list` 中每个部分的意思是什么。
+变量 `org-emphasis-regexp-components` 顾名思义是 org mode 用来识别有效的 `emphasis` 的规则， `C-h v org-emphasis-regexp-components` 可以看到 `list` 中每个部分分别是什么意思。
 
 **注意**这个设置必须在任何 OrgMode 代码执行之前， 也就是说:
-1. 如果你不用 `use-package` 来加载 package ，那么这个设置要出现在 `(require 'org)` 之前
-2. 如果用 `use-package` 话必须加在 `:init` section 的**开头**。
+1. 如果你不用 [use-package](https://github.com/jwiegley/use-package) 来加载 package ，那么这个设置要出现在 `(require 'org)` 之前；
+2. 如果使用 `use-package` 必须加在 `:init` section 的**最开始**，确保它在所有 org-mode 相关代码之前被执行。
 
 需要重启 Emacs 生效。
